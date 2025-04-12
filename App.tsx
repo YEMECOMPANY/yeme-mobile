@@ -7,6 +7,7 @@ import SignupScreen from './src/screens/Auth/SignUpScreen';
 import ForgotPasswordScreen from './src/screens/Auth/ForgotPasswordScreen';
 import SplashScreen from './src/screens/SplashScreen';
 import DashboardScreen from './src/screens/Dashboard/DashboardScreen';
+import GroupsScreen from './src/screens/Dashboard/GroupsScreen';
 import {RootStackParamList} from './src/types/navigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

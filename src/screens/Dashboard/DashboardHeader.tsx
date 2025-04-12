@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from '../../constants/styles';
 
 interface DashboardHeaderProps {
   onProfilePress: () => void;
@@ -24,33 +25,5 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({onProfilePress}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-  },
-  logoContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
-  logo: {
-    height: 40,
-    width: 120,
-  },
-  profileButton: {
-    padding: 4,
-  },
-});
 
 export default DashboardHeader;

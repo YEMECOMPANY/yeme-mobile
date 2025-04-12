@@ -1,4 +1,5 @@
 {
-  "name": "YemeApp",
-  "displayName": "YemeApp"
+  "name": "yeme-app",
+  "displayName": "yeme-app",
+  "newArchEnabled": true
 }

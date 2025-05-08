@@ -1,0 +1,17 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+, "src/components/rewardsScreenComponents", "src/components/rewardsScreenComponents.tsx/allRewards.jsx", "src/components/rewardsScreenComponents.tsx/myLoyaltyPrograms.jsx", "src/components/rewardsScreenComponents.tsx/myLoyaltyProgramDetailsScreen.jsx", "src/components/rewardsScreenComponents.tsx/loyaltyProgramDetails.jsx"  ]
+}

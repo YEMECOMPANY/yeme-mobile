@@ -1,7 +1,7 @@
 // components/RecentRewards.tsx
-import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AppText from "../appText";
 
@@ -190,7 +190,7 @@ const RecentRewards = ({
       {showHeader && (
         <View style={styles.sectionHeader}>
           <AppText fontWeight="bold" style={styles.sectionTitle}>
-            Recent reward points
+            Recent Reward Points
           </AppText>
           <TouchableOpacity style={styles.seeAllButton} onPress={handleSeeAll}>
             <AppText style={styles.seeAllText} fontWeight="bold">

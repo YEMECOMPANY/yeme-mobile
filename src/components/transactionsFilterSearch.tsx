@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import AppText from "./appText";
 
 interface UserTransactionFilterProps {
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 5,
     backgroundColor: "#F5F5F5",
+    marginBottom: 10,
   },
   searchContainer: {
     flexDirection: "row",

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AppText from "../appText";
+import SearchBar from "./searchBar";
+import TiersView from "./tiersView";
 import TotalYemsCard from "./totalYemsCard";
 import VendorsListView from "./vendorsListView";
 import YemsHistory from "./yemsHistory";
-import TiersView from "./tiersView";
-import SearchBar from "./searchBar";
 
 type TabType = "my-yems" | "earn-yems";
 type ViewType = "tiers" | "history";
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    padding: 16,
-    paddingTop: 24,
+    paddingRight: 20,
+    paddingLeft: 20,
   },
   tabContainer: {
     flexDirection: "row",

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import UserTransactionFilter from "../transactionsFilterSearch";
-import AppText from "../appText";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import AppText from "../appText";
+import UserTransactionFilter from "../transactionsFilterSearch";
 
 interface Transaction {
   id: string;
@@ -204,13 +204,6 @@ const UserTransactionsScreen: React.FC<UserTransactionsScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <UserTransactionFilter
-        onSearch={(query: string) => setSearchQuery(query)}
-        onSort={(
-          sortType: "date-desc" | "date-asc" | "amount-desc" | "amount-asc"
-        ) => setSortBy(sortType)}
-      />
-
       {showHeader && (
         <View style={styles.headerContainer}>
           <AppText fontWeight="bold" style={styles.sectionTitle}>
@@ -229,6 +222,13 @@ const UserTransactionsScreen: React.FC<UserTransactionsScreenProps> = ({
           )}
         </View>
       )}
+
+      <UserTransactionFilter
+        onSearch={(query: string) => setSearchQuery(query)}
+        onSort={(
+          sortType: "date-desc" | "date-asc" | "amount-desc" | "amount-asc"
+        ) => setSortBy(sortType)}
+      />
 
       <FlatList
         data={filteredTransactions}

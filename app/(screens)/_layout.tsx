@@ -73,6 +73,14 @@ export default function ScreensLayout() {
         name="myLoyaltyProgramDetails"
         options={{ title: "My Loyalty Program Detail", headerShown: false }}
       />
+      <Stack.Screen
+        name="Add New Card"
+        options={{ title: "Card", headerShown: false }}
+      />
+      <Stack.Screen
+        name="groupDetailScreen"
+        options={{ title: "Groups", headerShown: false }}
+      />
     </Stack>
   );
 }

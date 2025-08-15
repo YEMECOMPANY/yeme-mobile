@@ -1,36 +1,44 @@
-import React, { useState } from "react";
+// src/app/(auth)/phoneNumberScreen.tsx
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  ActivityIndicator,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
 import AppText from "../../src/components/appText";
+import { useAuthStore } from "../../src/store/authStore";
 
 const PhoneNumberScreen = () => {
   const router = useRouter();
   const [phone, setPhone] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { submitPhone, isLoading, error, user } = useAuthStore();
 
-  const handleSubmit = () => {
+  // Pre-fill phone number from signup
+  useEffect(() => {
+    if (user?.phone) {
+      setPhone(user.phone);
+    }
+  }, [user]);
+
+  const handleSubmit = async () => {
     if (!phone || !/^\d{10}$/.test(phone)) {
-      setError("Please enter a valid 10-digit phone number");
+      useAuthStore.setState({
+        error: "Please enter a valid 10-digit phone number",
+      });
       return;
     }
-    setIsLoading(true);
-    setError("");
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push("../(tabs)/home");
-    }, 1000);
+    await submitPhone(phone);
+    if (!useAuthStore.getState().error) {
+      router.push("/(tabs)/home");
+    }
   };
 
   return (
@@ -46,7 +54,7 @@ const PhoneNumberScreen = () => {
               style={styles.logo}
             />
             <AppText fontWeight="bold" style={styles.title}>
-              Enter Phone Number
+              Confirm Phone Number
             </AppText>
           </View>
 
@@ -70,7 +78,7 @@ const PhoneNumberScreen = () => {
                 <ActivityIndicator color="#fff" />
               ) : (
                 <AppText fontWeight="semi-bold" style={styles.buttonText}>
-                  Submit
+                  Confirm
                 </AppText>
               )}
             </TouchableOpacity>

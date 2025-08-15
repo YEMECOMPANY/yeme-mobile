@@ -1,7 +1,5 @@
-import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import { Provider } from "react-redux";
-import { store } from "../src/store";
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -12,9 +10,5 @@ export default function RootLayout() {
 
   if (!fontsLoaded) return null;
 
-  return (
-    <Provider store={store}>
-      <Stack screenOptions={{ headerShown: false }} />
-    </Provider>
-  );
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

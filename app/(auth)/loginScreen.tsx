@@ -1,50 +1,40 @@
+// src/app/(auth)/loginScreen.tsx
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  ActivityIndicator,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
 import AppText from "../../src/components/appText";
+import { useAuthStore } from "../../src/store/authStore";
 
 const LoginScreen = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { login, isLoading, error } = useAuthStore();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
-      setError("Please fill in all fields");
+      useAuthStore.setState({ error: "Please fill in all fields" });
       return;
     }
-    setIsLoading(true);
-    setError("");
-    const dummyUser = { email: "user@example.com", password: "password123" };
-    setTimeout(() => {
-      setIsLoading(false);
-      if (email === dummyUser.email && password === dummyUser.password) {
-        router.push("/(auth)/otpVerificationScreen");
-      } else {
-        setError("Invalid credentials");
-      }
-    }, 1000);
+    await login(email, password);
+    if (useAuthStore.getState().isAuthenticated) {
+      router.push("/(auth)/otpVerificationScreen");
+    }
   };
 
   const handleGoogleLogin = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push("/(auth)/otpVerificationScreen");
-    }, 1000);
+    router.push("/(auth)/otpVerificationScreen");
   };
 
   return (

@@ -1,18 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StoresScreen from "../../src/components/storesScreenComponents/storeScreen";
 
 const StoreScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["right", "left", "bottom"]}>
       <StoresScreen />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f5f5" },
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    paddingTop: 0, // Remove default padding at the top
+    marginTop: 0, // Remove default margin at the top
+  },
   content: { flex: 1, padding: 20 },
   title: { fontSize: 24, fontWeight: "bold", color: "#333", marginBottom: 20 },
   productItem: {

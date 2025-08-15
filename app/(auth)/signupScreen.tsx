@@ -1,46 +1,48 @@
+// src/app/(auth)/signupScreen.tsx
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  ActivityIndicator,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
 import AppText from "../../src/components/appText";
+import { useAuthStore } from "../../src/store/authStore";
 
 const SignupScreen = () => {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const { signup, isLoading, error } = useAuthStore();
 
-  const handleSignup = () => {
-    if (!name || !email || !password) {
-      setError("Please fill in all fields");
+  const handleSignup = async () => {
+    if (!fullName || !email || !password || !phoneNumber) {
+      useAuthStore.setState({ error: "Please fill in all fields" });
       return;
     }
-    setIsLoading(true);
-    setError("");
-    setTimeout(() => {
-      setIsLoading(false);
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      useAuthStore.setState({
+        error: "Please enter a valid 10-digit phone number",
+      });
+      return;
+    }
+    await signup(fullName, email, password, phoneNumber);
+    if (!useAuthStore.getState().error) {
       router.push("/(auth)/phoneNumberScreen");
-    }, 1000);
+    }
   };
 
   const handleGoogleSignup = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push("/(auth)/phoneNumberScreen");
-    }, 1000);
+    router.push("/(auth)/phoneNumberScreen");
   };
 
   return (
@@ -64,8 +66,8 @@ const SignupScreen = () => {
             <TextInput
               style={[styles.input, { fontFamily: "Inter-Regular" }]}
               placeholder="Full Name"
-              value={name}
-              onChangeText={setName}
+              value={fullName}
+              onChangeText={setFullName}
             />
             <TextInput
               style={[styles.input, { fontFamily: "Inter-Regular" }]}
@@ -81,6 +83,14 @@ const SignupScreen = () => {
               secureTextEntry
               value={password}
               onChangeText={setPassword}
+            />
+            <TextInput
+              style={[styles.input, { fontFamily: "Inter-Regular" }]}
+              placeholder="Phone Number (10 digits)"
+              keyboardType="phone-pad"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              maxLength={10}
             />
             {error ? <AppText style={styles.errorText}>{error}</AppText> : null}
 

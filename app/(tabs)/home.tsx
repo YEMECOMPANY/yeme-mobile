@@ -1,12 +1,12 @@
-import React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import YemeHeader from "../../src/components/homeScreenComponents/yemeHeader";
-import LoyaltyCard from "../../src/components/homeScreenComponents/loyaltySignUpCard";
-import CardList from "../../src/components/homeScreenComponents/cardCarousel/cardList";
-import RecentRewards from "../../src/components/rewardsScreenComponents/recentRewardPoints";
 import UserTransactionsScreen from "@/src/components/homeScreenComponents/userTransactions";
 import { router } from "expo-router";
+import React from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CardList from "../../src/components/homeScreenComponents/cardCarousel/cardList";
+import LoyaltyCard from "../../src/components/homeScreenComponents/loyaltySignUpCard";
+import YemeHeader from "../../src/components/homeScreenComponents/yemeHeader";
+import RecentRewards from "../../src/components/rewardsScreenComponents/recentRewardPoints";
 
 const HomeScreen = () => {
   return (
@@ -15,11 +15,11 @@ const HomeScreen = () => {
       <ScrollView>
         <LoyaltyCard />
         <CardList />
-        <RecentRewards />
         <UserTransactionsScreen
           limit={3}
           onSeeAll={() => router.push("/(screens)/transactions")}
         />
+        <RecentRewards />
       </ScrollView>
     </SafeAreaView>
   );

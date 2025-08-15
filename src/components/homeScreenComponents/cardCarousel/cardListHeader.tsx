@@ -1,6 +1,6 @@
-import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import AppText from "../../appText";
 
 interface CardListHeaderProps {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#333",
   },
   addButton: {

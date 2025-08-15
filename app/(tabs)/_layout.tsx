@@ -1,18 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Tabs, useRouter } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     "Inter-Regular": require("../../assets/fonts/Inter-Regular.ttf"),
   });
 
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded && !fontError) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color="#000" />
@@ -20,15 +20,20 @@ export default function TabLayout() {
     );
   }
 
+  if (fontError) {
+    console.error("Font loading error:", fontError);
+    // Fallback UI or handling can be added here
+  }
+
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
-        headerBackButtonDisplayMode: "default",
+        headerShown: true, // Set to true since most screens use headers
         tabBarActiveTintColor: "#FFFFFF",
         tabBarInactiveTintColor: "#b3b3b3",
         tabBarLabelStyle: {
           fontFamily: "Inter-Regular",
+          fontSize: 12,
         },
         headerStyle: {
           backgroundColor: "#FFFFFF",
@@ -42,19 +47,29 @@ export default function TabLayout() {
         },
         tabBarStyle: {
           backgroundColor: "#3A266E",
-          borderTopWidth: 0, // Remove top border
-          paddingBottom: 0, // Remove default bottom padding
-          marginBottom: 0, // Remove default bottom margin
-          height: 60 + insets.bottom, // Adjust height to include safe area inset
-          paddingTop: 0, // Remove top padding if any
+          borderTopWidth: 0,
+          paddingBottom: 0,
+          marginBottom: 0,
+          height: 60 + insets.bottom,
+          paddingTop: 0,
         },
+
+        headerTitleAlign: "center", // Consistent alignment for all headers
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => router.navigate("/(tabs)/home")}
+            style={{ marginLeft: 12 }}
+          >
+            <Ionicons name="arrow-back" size={30} color="black" />
+          </TouchableOpacity>
+        ),
       }}
     >
       <Tabs.Screen
         name="home"
         options={{
           title: "Home",
-          headerShown: false,
+          headerShown: false, // Only screen without header
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" color={color} size={size} />
           ),
@@ -73,19 +88,8 @@ export default function TabLayout() {
         name="yems"
         options={{
           title: "YEMs",
-          headerTitleAlign: "center",
-          headerShown: true,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="sparkles-outline" color={color} size={size} />
-          ),
-          headerLeft: () => (
-            <Ionicons
-              name="arrow-back"
-              size={30}
-              color="black"
-              style={{ marginLeft: 12 }}
-              onPress={() => router.push("/home")}
-            />
           ),
         }}
       />
@@ -93,19 +97,8 @@ export default function TabLayout() {
         name="rewards"
         options={{
           title: "Rewards",
-          headerShown: true,
-          headerTitleAlign: "center",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="gift-outline" color={color} size={size} />
-          ),
-          headerLeft: () => (
-            <Ionicons
-              name="arrow-back"
-              size={30}
-              color="black"
-              style={{ marginLeft: 12 }}
-              onPress={() => router.push("/home")}
-            />
           ),
         }}
       />
@@ -113,19 +106,8 @@ export default function TabLayout() {
         name="store"
         options={{
           title: "Store",
-          headerShown: true,
-          headerTitleAlign: "center",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" color={color} size={size} />
-          ),
-          headerLeft: () => (
-            <Ionicons
-              name="arrow-back"
-              size={30}
-              color="black"
-              style={{ marginLeft: 12 }}
-              onPress={() => router.push("/home")}
-            />
           ),
         }}
       />
